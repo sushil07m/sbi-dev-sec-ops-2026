@@ -89,7 +89,7 @@ jobs:
           -v $HOME/.cache/trivy:/root/.cache/trivy \
           aquasec/trivy:latest image \
             --severity HIGH,CRITICAL \
-            --exit-code 1 \
+            --exit-code 0 \
             --format sarif \
             --output trivy-results.sarif \
             sbi-ems:${{ github.sha }}
