@@ -2,6 +2,7 @@
 # SBI EMS — Hardened Multi-Stage Dockerfile
 # DevSecOps Training | Day 2: Container Security
 #
+
 # DevSecOps fixes vs. the "Insecure Dockerfile" shown in the courseware:
 #
 #  BEFORE (insecure — from courseware Module 6):
