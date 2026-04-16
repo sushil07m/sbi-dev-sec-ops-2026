@@ -4,7 +4,6 @@
 #
 
 # DevSecOps fixes vs. the "Insecure Dockerfile" shown in the courseware:
-#
 #  BEFORE (insecure — from courseware Module 6):
 #    FROM openjdk:17-jdk          ← full JDK (600MB+), running as ROOT
 #    COPY target/*.jar app.jar
