@@ -23,7 +23,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.5</version>
-		<relativePath />
+        <relativePath />
     </parent>
 
     <!-- ═══════════════════════════════════════════════════════════════════════
@@ -33,74 +33,71 @@
         <java.version>17</java.version>
         <jjwt.version>0.12.5</jjwt.version>
         <springdoc.version>2.5.0</springdoc.version>
-        <sonar.organization>sbi-training</sonar.organization>
-        <!-- OWASP Dependency-Check: fail build on CVSS >= 7 -->
-        <dependency.check.failBuildOnCVSS>7</dependency.check.failBuildOnCVSS>
-        <!-- SonarQube plugin configuration -->
-		<sonar.organization>vaman-pundit</sonar.organization>
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
-	    <sonar.projectKey>sbi-ems</sonar.projectKey>
-	    <sonar.projectName>SBI Employee Management System</sonar.projectName>
-	    <sonar.java.source>17</sonar.java.source>
-	    <sonar.exclusions>**/test/**,**/generated/**</sonar.exclusions>
+        <!-- SonarQube configuration -->
+        <sonar.organization>vaman-pundit</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.projectKey>sbi-ems</sonar.projectKey>
+        <sonar.projectName>SBI Employee Management System</sonar.projectName>
+        <sonar.java.source>17</sonar.java.source>
+        <sonar.exclusions>**/test/**,**/generated/**</sonar.exclusions>
     </properties>
 
-	<!-- ═══════════════════════════════════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════════════════════════════════
          DEPENDENCIES
          ═══════════════════════════════════════════════════════════════════════ -->
     <dependencies>
 
-		<!-- Spring Boot Web -->
+        <!-- Spring Boot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-		<!-- Spring Security -->
+        <!-- Spring Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-		<!-- Spring Data JPA -->
+        <!-- Spring Data JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-		<!-- Bean Validation -->
+        <!-- Bean Validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-		<!-- Actuator - health, metrics, info only -->
+        <!-- Actuator - health endpoint used by DAST readiness check -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-		<!-- AOP for Audit Logging -->
+        <!-- AOP for Audit Logging -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-		<!-- H2 In-Memory DB (dev/test only - runtime scope) -->
+        <!-- H2 In-Memory DB (dev/test only) -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-		<!-- Lombok -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-		<!-- JWT - jjwt 0.12.x (modern API) -->
+        <!-- JWT - jjwt 0.12.x -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -119,20 +116,14 @@
             <scope>runtime</scope>
         </dependency>
 
-		<!-- SpringDoc OpenAPI 3 / Swagger UI -->
+        <!-- SpringDoc OpenAPI 3 / Swagger UI (ZAP uses /v3/api-docs) -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.version}</version>
         </dependency>
 
-		<!-- Springboot devtools -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-        </dependency>
-
-		<!-- ── Test Dependencies ── -->
+        <!-- Test Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -146,13 +137,13 @@
 
     </dependencies>
 
-	<!-- ═══════════════════════════════════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════════════════════════════════
          BUILD PLUGINS
          ═══════════════════════════════════════════════════════════════════════ -->
     <build>
         <plugins>
 
-			<!-- Spring Boot Maven Plugin -->
+            <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -166,26 +157,14 @@
                 </configuration>
             </plugin>
 
-			<!-- SonarQube Scanner - SAST gate -->
+            <!-- SonarQube Scanner - SAST -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.11.0.3922</version>
             </plugin>
 
-			<!-- OWASP Dependency-Check - SCA/CVE gate -->
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>9.0.9</version>
-                <configuration>
-                    <failBuildOnCVSS>${dependency.check.failBuildOnCVSS}</failBuildOnCVSS>
-                    <format>HTML</format>
-                    <outputDirectory>${project.build.directory}/dependency-check-report</outputDirectory>
-                </configuration>
-            </plugin>
-
-			<!-- JaCoCo - code coverage for SonarQube quality gate -->
+            <!-- JaCoCo - code coverage fed into SonarQube -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>

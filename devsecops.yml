@@ -33,15 +33,13 @@ jobs:
       env:
         JWT_SECRET: ${{ secrets.JWT_SECRET_TEST }}
 
-    # ── 4. SAST — SonarCloud ─────────────────────────────────────
-    - name: SAST — SonarCloud scan
+    # ── 4. SAST — SonarQube ──────────────────────────────────────
+    - name: SAST — SonarQube scan
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         JWT_SECRET:  ${{ secrets.JWT_SECRET_TEST }}
       run: |
         mvn sonar:sonar \
-          -Dsonar.projectKey=sbi-ems \
-          -Dsonar.organization=vaman-pundit \
           -Dsonar.login=$SONAR_TOKEN
 
     # ── 5. Docker Build ──────────────────────────────────────────
